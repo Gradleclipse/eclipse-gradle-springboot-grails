@@ -1,0 +1,327 @@
+buildscript {
+	ext {
+		springBootVersion = '2.6.5'
+		groovyVersion = '3.0.10' // introduced by the author - is determined by the gradle-groovy-plugin and the springBootVersion!
+	}
+	repositories {
+		// The maven url with ".../grails/core" has to be the first entry!
+		maven { url "https://repo.grails.org/grails/core" }
+		// Then you may add more repositories...
+		mavenCentral()
+		jcenter()		
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+		// The next was required for OLD gradle-version - dont use it anymore!		
+//		// required for annotation-processing within eclipse!
+//		classpath("net.ltgt.gradle:gradle-apt-plugin:0.21")
+		
+		// Grails 5.7.1, see gradle.properties: grailsGradlePluginVersion=5.1.3
+		classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
+		classpath "org.grails.plugins:views-gradle:2.2.1"
+		classpath "org.grails.plugins:hibernate5:7.2.2"
+		classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.3.4"
+		classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.6"
+		
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version "${springBootVersion}"
+	
+	id 'groovy' // Adds Groovy-Support to your Gradle Project!	
+	id 'java'
+}
+
+// The next plugin was required for OLD gradle-version for Annontation-processing - dont use it anymore!	
+//apply plugin: "net.ltgt.apt-eclipse"
+// apply plugin: 'java-library' // <== was needed by the plugin above!
+
+// Java, Groovy, SpringBoot, Eclipse
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+// Grails 5.7.1
+apply plugin:"idea"
+apply plugin:"war"
+apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.plugins.views-markup"
+apply plugin:"org.grails.plugins.views-json"
+apply plugin:"asset-pipeline"
+apply plugin:"com.github.erdi.webdriver-binaries"
+apply plugin:"com.bertramlabs.asset-pipeline"
+apply plugin:"org.grails.grails-gsp"
+
+jar {
+	baseName = 'en.example.grails5-gradle-springboot'
+	version = '0.0.1-SNAPSHOT'
+}
+
+// restriction of javac: sourceCompatibility <= targetCompatibility
+sourceCompatibility = 11  // My Source is compatibel with JDK11
+targetCompatibility = 11  // All my Classes will be running by an JVM who's Level is higher or equal to JDK11
+
+repositories {
+	mavenCentral()
+	jcenter()
+	maven { url "https://repo.grails.org/grails/core" }
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+springBoot {
+	mainClass = 'en.example.Grails5Application'
+}
+
+sourceSets {
+	main {
+		java { // only java classes!
+			srcDirs = ['src/main/java']
+		}
+		groovy { // groovy and java classes
+			srcDirs = [
+				'src/main/groovy',
+				'grails-app/controllers',
+				'grails-app/domain',
+				'grails-app/init',
+				'grails-app/services',
+				'grails-app/taglib',
+				'grails-app/utils'				
+				]
+			exclude "grails-app/conf/**"
+		}
+		resources {
+			srcDirs = [
+				'src/main/resources',
+				'grails-app/assets',
+				'grails-app/conf',
+				'grails-app/i18n',
+				'grails-app/views'				
+				]
+		}
+	}
+
+	test {
+		java {
+			srcDirs = ['src/test/java']
+		}
+		groovy {
+			srcDirs = ['src/test/groovy']
+			//exclude 'some/unwanted/package/**'
+		}
+		resources {
+			srcDirs = ['src/test/resources']
+		}
+	}
+}
+
+// Avoid: java.io.FileNotFoundException: .\build\.grailspid after Running App via Spring-Tools-Suite!
+// after clean we immediately make a new but empty directory "build"
+tasks.register('ensureBuildDirectory') {
+	doLast {
+		println "--> ensureBuildDirectory: mkdir ${buildDir}"
+		mkdir "${buildDir}"
+	}
+}
+clean.finalizedBy('ensureBuildDirectory')
+
+
+test {
+	filter {
+		excludeTestsMatching "en.example.runisolated.*"
+	}
+}
+
+// The next line is desperately needed for Spock-Tests!
+// Spock 2 is based on JUnit Platform which needs to be enabled explicitly.
+tasks.withType(Test).configureEach {
+	useJUnitPlatform()
+}
+
+// Unfortunately the following does not work in Eclipse together with a Remote-Debug-Configuration:
+//// gradle bootRun -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9009
+//bootRun {
+//	systemProperty "agentlib:jdwp", "transport=dt_socket,server=y,suspend=n,address=8000"
+// }
+
+bootRun {
+	ignoreExitValue true
+	jvmArgs(
+		'-Dspring.output.ansi.enabled=always',
+		'-noverify',
+		'-XX:TieredStopAtLevel=1',
+		'-Xmx1024m')
+	sourceResources sourceSets.main
+	String springProfilesActive = 'spring.profiles.active'
+	systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+}
+
+tasks.withType(GroovyCompile) {
+	configure(groovyOptions) {
+		forkOptions.jvmArgs = ['-Xmx1024m']
+	}
+}
+
+assets {
+	minifyJs = true
+	minifyCss = true
+	excludes = ['**/*.less']
+	includes = ['application.less']
+	configOptions = [
+	  less: [
+		compiler: 'less4j' // or standard
+	  ]
+	]
+}
+
+webdriverBinaries {
+	if (!System.getenv().containsKey('GITHUB_ACTIONS')) {
+		chromedriver {
+			version = '2.45.0'
+			fallbackTo32Bit = true
+		}
+		geckodriver '0.30.0'
+	}
+}
+
+tasks.withType(Test) {
+	systemProperty "geb.env", System.getProperty('geb.env')
+	systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+	if (!System.getenv().containsKey('GITHUB_ACTIONS')) {
+		systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+		systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+	} else {
+		systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
+		systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
+	}
+}
+
+// Why double-time?
+//assets {
+//	minifyJs = true
+//	minifyCss = true
+//}
+
+
+
+dependencies {
+	// The next two dependencies are required for lombok-Annotations like @Slf4j !
+	// Install lombok for eclipse first, then use the version which fits!
+	compileOnly "org.projectlombok:lombok:1.18.22"	// We love lombok!
+	annotationProcessor "org.projectlombok:lombok:1.18.22" // Your annotation-processor
+	// Annotation: "@Slf4j"
+	implementation('org.slf4j:slf4j-api')
+	// Do NOT include: "implementation 'org.slf4j:slf4j-log4j12'", because we will use logback instead!
+	
+	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+	implementation "org.codehaus.groovy:groovy-all:${groovyVersion}" // it's crucial to take the right version here!
+	
+			
+	implementation('org.springframework.boot:spring-boot-starter')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	
+	// superseeded by grails 5.1.7 with implementation
+//	// war file can be packaged that it can be executed using java -jar and deployed to an external container. 
+//	// To do so, the embedded servlet container dependencies should be added to the providedRuntime configuration
+//	// providedRuntime is preferred to Gradle’s compileOnly configuration as, 
+//	// among other limitations, compileOnly dependencies are not on the test classpath 
+//	// so any web-based integration tests will fail.
+//	runtimeOnly('org.springframework.boot:spring-boot-starter-tomcat')
+	
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-cache')
+	implementation('org.springframework.boot:spring-boot-starter-data-rest')
+	implementation('org.springframework.boot:spring-boot-starter-hateoas')
+	implementation('org.springframework.boot:spring-boot-starter-data-rest')
+	
+	implementation('com.h2database:h2')
+	
+	// https://mvnrepository.com/artifact/org.spockframework/spock-core
+	testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+			
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+	
+	// Grails 5.7.1	
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	assets "com.bertramlabs.plugins:less-asset-pipeline:3.3.4"
+	compileOnly "io.micronaut:micronaut-inject-groovy"
+	console "org.grails:grails-console"
+	implementation "org.springframework.boot:spring-boot-starter-logging"
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+	implementation "org.springframework.boot:spring-boot-autoconfigure"
+	implementation "org.grails:grails-core"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation "org.springframework.boot:spring-boot-starter-tomcat"
+	implementation "org.grails:grails-web-boot"
+	implementation "org.grails:grails-logging"
+	implementation "org.grails:grails-plugin-rest"
+	implementation "org.grails:grails-plugin-databinding"
+	implementation "org.grails:grails-plugin-i18n"
+	implementation "org.grails:grails-plugin-services"
+	implementation "org.grails:grails-plugin-url-mappings"
+	implementation "org.grails:grails-plugin-interceptors"
+	// Caused by: grails.plugins.exceptions.PluginException: Failed to initialize class [com.demo.DemoController] from plugin [cache] : com.demo.DemoController
+	// Fixed by  "org.grails.plugins:cache:5.0.1"
+	implementation "org.grails.plugins:cache:5.0.1"
+	implementation "org.grails.plugins:async"
+	implementation "org.grails.plugins:scaffolding"
+	implementation "org.grails.plugins:views-markup"
+	implementation "org.grails.plugins:views-json"
+	implementation "org.grails.plugins:views-json-templates"
+	implementation "org.grails.plugins:hibernate5"
+	implementation "org.hibernate:hibernate-core:5.6.5.Final"
+	implementation "org.grails.plugins:events"
+	implementation "org.grails.plugins:gsp"
+	profile "org.grails.profiles:web"
+	runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
+	runtimeOnly "com.h2database:h2"
+	runtimeOnly "org.apache.tomcat:tomcat-jdbc"
+	runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
+	runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.3.4"
+	testImplementation "io.micronaut:micronaut-inject-groovy"
+	testImplementation "org.grails:grails-gorm-testing-support"
+	testImplementation "org.mockito:mockito-core"
+	testImplementation "org.grails:grails-web-testing-support"
+	testImplementation "org.grails.plugins:geb"
+	testImplementation "org.seleniumhq.selenium:selenium-remote-driver:4.0.0"
+	testImplementation "org.seleniumhq.selenium:selenium-api:4.0.0"
+	testImplementation "org.seleniumhq.selenium:selenium-support:4.0.0"
+	testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:4.0.0"
+	testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:4.0.0"
+		
+}
+
+
+//task runApp(type: JavaExec) {
+//	debugOptions {
+//		enabled = true
+//		port = 9009
+//		server = true
+//		suspend = false
+//	}
+//}
+
+//tasks.withType(JavaExec) {
+//	if (System.getProperty('DEBUG', 'false') == 'true') {
+//		jvmArgs '-Xdebug',
+//			'-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+//	}
+//}
+
+
+//task testSimple(type:Test){
+//	println '--> testSimple with filter'
+//	filter {
+//		includeTestsMatching "en.example.simple.*"
+//	}
+//}
