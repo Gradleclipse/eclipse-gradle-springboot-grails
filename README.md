@@ -11,7 +11,6 @@ This project is under Apache License Version 2.0
 See the file "LICENSE"
 
 ## Preface
-
 If you already use IntelliJ IDEA you <i>really don't need</i> this project!
 
 But if you also like the Eclipse IDE you may read on.
@@ -22,6 +21,12 @@ for a Gradle-SpringBoot-Grails5 Project!
 The Project eclipse-gradle-springboot-grails was created as a gradle project within eclipse by Buildship.
 
 See also: https://www.vogella.com/tutorials/EclipseGradle/article.html
+
+## It's not a new idea ...
+At June 2019 Bhagvan Kommadi has already given us an in-depth Guide how to develop grails 3 with Gradle.
+He also used the Groovy Eclipse plugin. To gain more insight see:
+https://examples.javacodegeeks.com/core-java/gradle/gradle-grails-example/
+
 
 ## How to use this Project
 If you like to develop a Grails5 Application within Eclipse, this project maybe your starting point.
@@ -108,8 +113,8 @@ To use the right versions is crucial, here they are:
 - Groovy Development Tools Release 4.5.0
 - Spring Boot 2.6.5
 - Groovy 3.0.10
-    - (Eclipse > Windows > Preferences > Groovy > Compiler > Switch-to Groovy compiler version 3.0.10 (+restart eclipse)
-    - And therefore we have to use an appropriate JDK, e.g. JDK15
+     - Eclipse > Windows > Preferences > Groovy > Compiler > Switch-to Groovy compiler version 3.0.10 (+restart eclipse)
+     - And therefore we have to use an appropriate JDK, e.g. JDK15
 - Grails 5.1.7
 
 In the future you may deduce your versions the other way around:
@@ -261,6 +266,8 @@ clean.finalizedBy('ensureBuildDirectory')
 
 ## Eclipse Runconfigurations
 See project-folder: "eclipse-runconfigurations"
+
+Have fun!
 
                                     
 
