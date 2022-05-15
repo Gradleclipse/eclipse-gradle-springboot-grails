@@ -8,3 +8,9 @@ build
 
 # Ignore Log directory
 /logs/
+
+# Ignore db defined for production-datasource
+prodDb.mv.db
+
+# Ignore the buildrun Directory
+buildrun

@@ -15,7 +15,7 @@ If you already use IntelliJ IDEA you <i>really don't need</i> this project!
 
 But if you also like the Eclipse IDE you may read on.
 
-Eclipse lacks Grails-Support, but it has a good Gradle- and Spring-Boot Integration - let's use it
+Eclipse lacks Grails-Support, but it has a good Gradle (and Spring-Boot) Integration - let's use it
 for a Gradle-SpringBoot-Grails5 Project!
 
 The Project eclipse-gradle-springboot-grails was created as a gradle project within eclipse by Buildship.
@@ -27,11 +27,57 @@ At June 2019 Bhagvan Kommadi has already given us an in-depth Guide how to devel
 He also used the Groovy Eclipse plugin. To gain more insight see:
 https://examples.javacodegeeks.com/core-java/gradle/gradle-grails-example/
 
+## Howto run the application with the Eclipse-IDE in Debug-Mode
+- Run > Run Configurations... > Gradle Task: bootRun
+    - See Launch-Configuration file: "eclipse-runconfigurations\eclipse-gradle - bootRun.launch"
+    - Under Environment Development the Java-Application will stop with the log-message
+      <pre>Listening for transport dt_socket at address: 5555</pre>
+- Debug Configurations... > Remote Java Application > "[Remote Debug] eclipse-gradle-springboot-grails" 
+    - After that your Application should be running in Debug-Mode
+    - And you should see a log-message like:
+      <pre>Grails application running at http://localhost:8080 in environment: development</pre>
+    - The Application will stop again in Debug-Mode, so click the "Resume-Button"
+    - Now you can set Breakpoints and can Debug your Application
+    
+### How we achieved this behaviour...
+- In build.gradle under Section bootRun {...} we added
+    <pre>
+        jvmArgs( '-Xdebug','-agentlib:jdwp=transport=dt_socket,address=5555,server=y,suspend=y'	)
+    </pre>
+    - This prepared "gradle bootRun" for Remote-Debugging with port 5555
+
+## How to deploy and run the grails application
+- In the project-dir you will find a Grails-Wrapper
+- Under Windows open a Windows-Command Prompt and change to your project-directory
+- Do ".\grailsw clean" (this will take some time)
+- Do ".\grailsw package" (this will take some time)
+- Under build\libs you should find a War Archive-file [project-name].war, e.g.: 'eclipse-gradle-springboot-grails.war'    
+- create a sub-directory "buildrun" and copy the war-archive into it
+- Change to the sub-directory "buildrun" and do something like the followowing:
+<pre>
+	java -Dgrails.env=prod -jar eclipse-gradle-springboot-grails.war
+</pre>
+
+## Why not using a [Spring Tool Suite] Runconfiguration?
+Unfortunately using a Run-Configuration with the Spring Tool Suite will  _NOT_  work!
+
+You could install Spring Tool Suite 4 under Eclipse and then Debug your "Spring-Boot-Application" 
+with a "Spring Tool Suite Run-Configuration", e.g. see: eclipse-runconfigurations/[Spring Tool Suite] eclipse-gradle.launch
+
+### Why will this not work?
+Because a Spring-Boot Application is  _not_   a Grails-Application!
+One Symptom is, that your Grails-Application Configuration-Files  _application.groovy_ ,  _runtime.groovy_  will not be loaded!
+So the behaviour is "wrong" with unpredictable results :-(
+
+### Spring Tool Suite 4
+To install the Spring Tool Suite in your Eclipse IDE, e.g. see:
+https://marketplace.eclipse.org/content/spring-tools-4-aka-spring-tool-suite-4    
+
 
 ## How to use this Project
 If you like to develop a Grails5 Application within Eclipse, this project maybe your starting point.
 - Check the project out
-- Rename the project to your needs
+- Rename the project to your needs, maybe you want change the default-package 'en.example' too
 - Delete the .git folder and check it in your Versioning-Software (Git, SVN, CVS, what-so-ever)
 - What you need can be read under Section "Recommended Software"
 - Add the following to your eclipse.ini after the -vmargs line
@@ -43,7 +89,7 @@ The most part of this readme-file is about how this project was created, so you 
 
 
 ## Which OS?
-<b>Note:</b> This project was created under Windows. 
+<b>Note:</b> This project was created under Windows and most tips are related to windows.
 But there is no reason, why this shouldn't work under Linux as well.
 
 ## No GSP-Editor
@@ -56,6 +102,10 @@ For me this is good enough.
 ( Of course IntelliJ has a great Grails- and GSP-Support. )
 
 ( Or maybe you are using thymeleaf anyway? ^^ )
+
+## Added Jansi Support
+Jansi is a small java library that allows you to use ANSI escape codes to format your console output which works even on Windows.
+See https://github.com/fusesource/jansi
 
 ## Recommended Software
 If you use the following software you should have no problems running this project:
@@ -94,18 +144,6 @@ through a line similar to this:
     C:/java/jdk-15.0.2/bin
 </pre>
 ( you have to adapt the path to your JDK-Installation of course )
-
-
-### Note on Spring-Boot
-We are interested  _mainly_  in Spring-Boot Applications, this will play an important role,
-if we are trying to debug our (Spring-Boot-)Application, because this will become real easy with the
-Spring Boot Tool Suite!
-
-E.g. see: eclipse-runconfigurations/[Spring Tool Suite] eclipse-gradle.launch
-
-## Spring Tool Suite 4
-So install the newest Spring Tool Suite in your Eclipse IDE, e.g. see:
-https://marketplace.eclipse.org/content/spring-tools-4-aka-spring-tool-suite-4    
 
 ## It's all about the right versions
 To use the right versions is crucial, here they are:

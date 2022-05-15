@@ -6,9 +6,11 @@
     <stringAttribute key="gradle_distribution" value="GRADLE_DISTRIBUTION(WRAPPER)"/>
     <stringAttribute key="gradle_user_home" value=""/>
     <stringAttribute key="java_home" value=""/>
-    <listAttribute key="jvm_arguments"/>
+    <listAttribute key="jvm_arguments">
+        <listEntry value="-Dgrails.env=dev"/>
+    </listAttribute>
     <booleanAttribute key="offline_mode" value="false"/>
-    <booleanAttribute key="override_workspace_settings" value="false"/>
+    <booleanAttribute key="override_workspace_settings" value="true"/>
     <booleanAttribute key="show_console_view" value="true"/>
     <booleanAttribute key="show_execution_view" value="true"/>
     <listAttribute key="tasks">

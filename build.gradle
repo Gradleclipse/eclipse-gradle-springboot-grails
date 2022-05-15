@@ -153,13 +153,25 @@ tasks.withType(Test).configureEach {
 //	systemProperty "agentlib:jdwp", "transport=dt_socket,server=y,suspend=n,address=8000"
 // }
 
-bootRun {
+bootRun { // default is Environment.DEVELOPMENT, to change use jvm-Option, e.g.: gradle bootRun -Dgrails.env=prod
 	ignoreExitValue true
-	jvmArgs(
-		'-Dspring.output.ansi.enabled=always',
-		'-noverify',
-		'-XX:TieredStopAtLevel=1',
-		'-Xmx1024m')
+	
+	if ( grails.util.Environment.current == grails.util.Environment.DEVELOPMENT ) {
+		jvmArgs(
+			'-Dspring.output.ansi.enabled=always',			
+			'-XX:TieredStopAtLevel=1',
+			'-Xmx1024m',
+			'-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=5555,server=y,suspend=y'
+			)
+	} else {
+		jvmArgs(
+			'-Dspring.output.ansi.enabled=always',
+			'-XX:TieredStopAtLevel=1',
+			'-Xmx1024m'
+			)
+	}	
+	
 	sourceResources sourceSets.main
 	String springProfilesActive = 'spring.profiles.active'
 	systemProperty springProfilesActive, System.getProperty(springProfilesActive)
@@ -225,7 +237,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
 	implementation "org.codehaus.groovy:groovy-all:${groovyVersion}" // it's crucial to take the right version here!
 	
-			
+	// Jansi is a small java library that allows you to use ANSI escape codes to format your console output which works even on Windows.
+	// https://github.com/fusesource/jansi
+	// https://mvnrepository.com/artifact/org.fusesource.jansi/jansi
+	implementation group: 'org.fusesource.jansi', name: 'jansi', version: '2.4.0'
+				
 	implementation('org.springframework.boot:spring-boot-starter')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	

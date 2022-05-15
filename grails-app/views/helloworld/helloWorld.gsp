@@ -15,7 +15,7 @@
         
        <section class="row"> 
        		<p>
-       			<g:message code="not.within.messagesDe.property" default="OhohFallbackIsNotWorking!"/>
+       			<g:message code="not.within.messagesXy.property" default="OhohFallbackIsNotWorking!"/>
        		</p> 
        </section>
     </div>
