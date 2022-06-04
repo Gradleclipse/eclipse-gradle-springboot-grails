@@ -24,7 +24,7 @@ spring:
     devtools:
         restart:
             additional-exclude:
-                environments:
+environments:
     development:
         management:
             endpoints:
