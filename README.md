@@ -53,7 +53,7 @@ https://examples.javacodegeeks.com/core-java/gradle/gradle-grails-example/
 - Do ".\grailsw package" (this will take some time)
 - Under build\libs you should find a War Archive-file [project-name].war, e.g.: 'eclipse-gradle-springboot-grails.war'    
 - create a sub-directory "buildrun" and copy the war-archive into it
-- Change to the sub-directory "buildrun" and do something like the followowing:
+- Change to the sub-directory "buildrun" and do something like the following:
 <pre>
 	java -Dgrails.env=prod -jar eclipse-gradle-springboot-grails.war
 </pre>
