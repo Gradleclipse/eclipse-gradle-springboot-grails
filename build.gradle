@@ -220,14 +220,16 @@ tasks.withType(Test) {
 task restart {
 	dependsOn compileJava
 	dependsOn compileGroovy
-	doLast {
-		URL[] urls = sourceSets.main.runtimeClasspath.files.collect { it.toURI().toURL() } as URL[]
-		ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
-		def classloader = new URLClassLoader(urls, sysClassLoader)
-		Class type = classloader.loadClass('en.example.gradle.RestartTask')
-		def instance = type.getDeclaredConstructor(String.class).newInstance("http://localhost:8080/actuator/restart")
-		def httpStatus = instance.postRestart();	
-		logger.error( "[Task myaction] --> httpStatus: " + httpStatus )
+	doLast { // restrict the restart for Environment.DEVELOPMENT !
+		if ( grails.util.Environment.current == grails.util.Environment.DEVELOPMENT ) {
+			URL[] urls = sourceSets.main.runtimeClasspath.files.collect { it.toURI().toURL() } as URL[]
+			ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
+			def classloader = new URLClassLoader(urls, sysClassLoader)
+			Class type = classloader.loadClass('en.example.gradle.RestartTask')
+			def instance = type.getDeclaredConstructor(String.class).newInstance("http://localhost:8080/actuator/restart")
+			def httpStatus = instance.postRestart();
+			logger.error( "[Task myaction] --> httpStatus: " + httpStatus )
+		}		
 	 }
 }
 
@@ -252,9 +254,9 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	
 	// Next 3 dependencies are needed for the RestartTask.groovy in en.example.gradle package
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	developmentOnly("org.springframework.boot:spring-boot-starter-actuator")
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter
-	implementation 'org.springframework.cloud:spring-cloud-starter:3.1.3'
+	developmentOnly("org.springframework.cloud:spring-cloud-starter:3.1.3")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	
 	// superseeded by grails 5.1.7 with implementation
