@@ -1081,21 +1081,69 @@ developmentOnly - Configuration for development-only dependencies such as Spring
 |    |    +--- io.micronaut:micronaut-inject:3.3.4 (*)
 |    |    \--- io.micronaut:micronaut-core:3.3.4 (*)
 |    \--- org.codehaus.groovy:groovy:3.0.9 -> 3.0.10
++--- org.springframework.boot:spring-boot-starter-actuator -> 2.6.5
+|    +--- org.springframework.boot:spring-boot-starter:2.6.5
+|    |    +--- org.springframework.boot:spring-boot:2.6.5
+|    |    |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19
+|    |    |    |    \--- org.springframework:spring-jcl:5.3.19 -> 5.3.17
+|    |    |    \--- org.springframework:spring-context:5.3.17 -> 5.3.19
+|    |    |         +--- org.springframework:spring-aop:5.3.19
+|    |    |         |    +--- org.springframework:spring-beans:5.3.19
+|    |    |         |    |    \--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         |    \--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         +--- org.springframework:spring-beans:5.3.19 (*)
+|    |    |         +--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         \--- org.springframework:spring-expression:5.3.19
+|    |    |              \--- org.springframework:spring-core:5.3.19 (*)
+|    |    +--- org.springframework.boot:spring-boot-autoconfigure:2.6.5
+|    |    |    \--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    +--- org.springframework.boot:spring-boot-starter-logging:2.6.5
+|    |    |    +--- ch.qos.logback:logback-classic:1.2.11
+|    |    |    |    +--- ch.qos.logback:logback-core:1.2.11
+|    |    |    |    \--- org.slf4j:slf4j-api:1.7.32 -> 1.7.36
+|    |    |    +--- org.apache.logging.log4j:log4j-to-slf4j:2.17.2
+|    |    |    |    +--- org.slf4j:slf4j-api:1.7.35 -> 1.7.36
+|    |    |    |    \--- org.apache.logging.log4j:log4j-api:2.17.2
+|    |    |    \--- org.slf4j:jul-to-slf4j:1.7.36
+|    |    |         \--- org.slf4j:slf4j-api:1.7.36
+|    |    +--- jakarta.annotation:jakarta.annotation-api:1.3.5 -> 2.0.0
+|    |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19 (*)
+|    |    \--- org.yaml:snakeyaml:1.29
+|    +--- org.springframework.boot:spring-boot-actuator-autoconfigure:2.6.5
+|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2
+|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2
+|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (c)
+|    |    |    |         \--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2 (c)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2
+|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2
+|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (*)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (*)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
+|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- org.springframework.boot:spring-boot-actuator:2.6.5
+|    |    |    \--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    +--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
+|    \--- io.micrometer:micrometer-core:1.8.4
+|         +--- org.hdrhistogram:HdrHistogram:2.1.12
+|         \--- org.latencyutils:LatencyUtils:2.0.3
++--- org.springframework.cloud:spring-cloud-starter:3.1.3
+|    +--- org.springframework.boot:spring-boot-starter:2.6.8 -> 2.6.5 (*)
+|    +--- org.springframework.cloud:spring-cloud-context:3.1.3
+|    |    \--- org.springframework.security:spring-security-crypto:5.6.5 -> 5.6.2
+|    +--- org.springframework.cloud:spring-cloud-commons:3.1.3
+|    |    \--- org.springframework.security:spring-security-crypto:5.6.5 -> 5.6.2
+|    \--- org.springframework.security:spring-security-rsa:1.0.10.RELEASE
+|         \--- org.bouncycastle:bcpkix-jdk15on:1.68
+|              \--- org.bouncycastle:bcprov-jdk15on:1.68
 \--- org.springframework.boot:spring-boot-devtools -> 2.6.5
-     +--- org.springframework.boot:spring-boot:2.6.5
-     |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19
-     |    |    \--- org.springframework:spring-jcl:5.3.19 -> 5.3.17
-     |    \--- org.springframework:spring-context:5.3.17 -> 5.3.19
-     |         +--- org.springframework:spring-aop:5.3.19
-     |         |    +--- org.springframework:spring-beans:5.3.19
-     |         |    |    \--- org.springframework:spring-core:5.3.19 (*)
-     |         |    \--- org.springframework:spring-core:5.3.19 (*)
-     |         +--- org.springframework:spring-beans:5.3.19 (*)
-     |         +--- org.springframework:spring-core:5.3.19 (*)
-     |         \--- org.springframework:spring-expression:5.3.19
-     |              \--- org.springframework:spring-core:5.3.19 (*)
-     \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5
-          \--- org.springframework.boot:spring-boot:2.6.5 (*)
+     +--- org.springframework.boot:spring-boot:2.6.5 (*)
+     \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
 
 gspCompile
 \--- javax.servlet:javax.servlet-api:3.1.0
@@ -2042,21 +2090,71 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 |    |    +--- io.micronaut:micronaut-inject:3.3.4 (*)
 |    |    \--- io.micronaut:micronaut-core:3.3.4 (*)
 |    \--- org.codehaus.groovy:groovy:3.0.9 -> 3.0.10
++--- org.springframework.boot:spring-boot-starter-actuator -> 2.6.5
+|    +--- org.springframework.boot:spring-boot-starter:2.6.5
+|    |    +--- org.springframework.boot:spring-boot:2.6.5
+|    |    |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19
+|    |    |    |    \--- org.springframework:spring-jcl:5.3.19 -> 5.3.17
+|    |    |    \--- org.springframework:spring-context:5.3.17 -> 5.3.19
+|    |    |         +--- org.springframework:spring-aop:5.3.19
+|    |    |         |    +--- org.springframework:spring-beans:5.3.19
+|    |    |         |    |    \--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         |    \--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         +--- org.springframework:spring-beans:5.3.19 (*)
+|    |    |         +--- org.springframework:spring-core:5.3.19 (*)
+|    |    |         \--- org.springframework:spring-expression:5.3.19
+|    |    |              \--- org.springframework:spring-core:5.3.19 (*)
+|    |    +--- org.springframework.boot:spring-boot-autoconfigure:2.6.5
+|    |    |    \--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    +--- org.springframework.boot:spring-boot-starter-logging:2.6.5
+|    |    |    +--- ch.qos.logback:logback-classic:1.2.11
+|    |    |    |    +--- ch.qos.logback:logback-core:1.2.11
+|    |    |    |    \--- org.slf4j:slf4j-api:1.7.32 -> 1.7.36
+|    |    |    +--- org.apache.logging.log4j:log4j-to-slf4j:2.17.2
+|    |    |    |    +--- org.slf4j:slf4j-api:1.7.35 -> 1.7.36
+|    |    |    |    \--- org.apache.logging.log4j:log4j-api:2.17.2
+|    |    |    \--- org.slf4j:jul-to-slf4j:1.7.36
+|    |    |         \--- org.slf4j:slf4j-api:1.7.36
+|    |    +--- jakarta.annotation:jakarta.annotation-api:1.3.5 -> 2.0.0
+|    |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19 (*)
+|    |    \--- org.yaml:snakeyaml:1.29
+|    +--- org.springframework.boot:spring-boot-actuator-autoconfigure:2.6.5
+|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2
+|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2
+|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2 (c)
+|    |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2 (c)
+|    |    |    |         \--- com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2 (c)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2
+|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2
+|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (*)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (*)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
+|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- org.springframework.boot:spring-boot-actuator:2.6.5
+|    |    |    \--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    +--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    |    \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
+|    \--- io.micrometer:micrometer-core:1.8.4
+|         +--- org.hdrhistogram:HdrHistogram:2.1.12
+|         \--- org.latencyutils:LatencyUtils:2.0.3
++--- org.springframework.cloud:spring-cloud-starter:3.1.3
+|    +--- org.springframework.boot:spring-boot-starter:2.6.8 -> 2.6.5 (*)
+|    +--- org.springframework.cloud:spring-cloud-context:3.1.3
+|    |    \--- org.springframework.security:spring-security-crypto:5.6.5 -> 5.6.2
+|    +--- org.springframework.cloud:spring-cloud-commons:3.1.3
+|    |    \--- org.springframework.security:spring-security-crypto:5.6.5 -> 5.6.2
+|    \--- org.springframework.security:spring-security-rsa:1.0.10.RELEASE
+|         \--- org.bouncycastle:bcpkix-jdk15on:1.68
+|              \--- org.bouncycastle:bcprov-jdk15on:1.68
 +--- org.springframework.boot:spring-boot-devtools -> 2.6.5
-|    +--- org.springframework.boot:spring-boot:2.6.5
-|    |    +--- org.springframework:spring-core:5.3.17 -> 5.3.19
-|    |    |    \--- org.springframework:spring-jcl:5.3.19 -> 5.3.17
-|    |    \--- org.springframework:spring-context:5.3.17 -> 5.3.19
-|    |         +--- org.springframework:spring-aop:5.3.19
-|    |         |    +--- org.springframework:spring-beans:5.3.19
-|    |         |    |    \--- org.springframework:spring-core:5.3.19 (*)
-|    |         |    \--- org.springframework:spring-core:5.3.19 (*)
-|    |         +--- org.springframework:spring-beans:5.3.19 (*)
-|    |         +--- org.springframework:spring-core:5.3.19 (*)
-|    |         \--- org.springframework:spring-expression:5.3.19
-|    |              \--- org.springframework:spring-core:5.3.19 (*)
-|    \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5
-|         \--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    +--- org.springframework.boot:spring-boot:2.6.5 (*)
+|    \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
 +--- org.slf4j:slf4j-api -> 1.7.36
 +--- org.codehaus.groovy:groovy-all:3.0.10
 |    +--- org.codehaus.groovy:groovy:3.0.10
@@ -2151,21 +2249,7 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 |    |         +--- com.beust:jcommander:1.78
 |    |         \--- org.webjars:jquery:3.5.1
 |    \--- org.codehaus.groovy:groovy-xml:3.0.10 (*)
-+--- org.springframework.boot:spring-boot-starter -> 2.6.5
-|    +--- org.springframework.boot:spring-boot:2.6.5 (*)
-|    +--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
-|    +--- org.springframework.boot:spring-boot-starter-logging:2.6.5
-|    |    +--- ch.qos.logback:logback-classic:1.2.11
-|    |    |    +--- ch.qos.logback:logback-core:1.2.11
-|    |    |    \--- org.slf4j:slf4j-api:1.7.32 -> 1.7.36
-|    |    +--- org.apache.logging.log4j:log4j-to-slf4j:2.17.2
-|    |    |    +--- org.slf4j:slf4j-api:1.7.35 -> 1.7.36
-|    |    |    \--- org.apache.logging.log4j:log4j-api:2.17.2
-|    |    \--- org.slf4j:jul-to-slf4j:1.7.36
-|    |         \--- org.slf4j:slf4j-api:1.7.36
-|    +--- jakarta.annotation:jakarta.annotation-api:1.3.5 -> 2.0.0
-|    +--- org.springframework:spring-core:5.3.17 -> 5.3.19 (*)
-|    \--- org.yaml:snakeyaml:1.29
++--- org.springframework.boot:spring-boot-starter -> 2.6.5 (*)
 +--- org.springframework.boot:spring-boot-starter-web -> 2.6.5
 |    +--- org.springframework.boot:spring-boot-starter:2.6.5 (*)
 |    +--- org.springframework.boot:spring-boot-starter-json:2.6.5
@@ -2173,27 +2257,12 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 |    |    +--- org.springframework:spring-web:5.3.17 -> 5.3.19
 |    |    |    +--- org.springframework:spring-beans:5.3.19 (*)
 |    |    |    \--- org.springframework:spring-core:5.3.19 (*)
-|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2
-|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2
-|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2
-|    |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (c)
-|    |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (c)
-|    |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (c)
-|    |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2 (c)
-|    |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2 (c)
-|    |    |    |         \--- com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2 (c)
-|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2
-|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
-|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
 |    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2
 |    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (*)
 |    |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
 |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
-|    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2
-|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.2 (*)
-|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (*)
-|    |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
-|    |    |    \--- com.fasterxml.jackson:jackson-bom:2.13.2 (*)
+|    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2 (*)
 |    |    \--- com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2
 |    |         +--- com.fasterxml.jackson.core:jackson-core:2.13.2 (*)
 |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
@@ -2531,18 +2600,6 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 |    +--- org.apache.ant:ant:1.10.12 (*)
 |    +--- jline:jline:2.14.6
 |    \--- org.fusesource.jansi:jansi:1.18
-+--- org.springframework.boot:spring-boot-starter-actuator -> 2.6.5
-|    +--- org.springframework.boot:spring-boot-starter:2.6.5 (*)
-|    +--- org.springframework.boot:spring-boot-actuator-autoconfigure:2.6.5
-|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.2 (*)
-|    |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2 (*)
-|    |    +--- org.springframework.boot:spring-boot-actuator:2.6.5
-|    |    |    \--- org.springframework.boot:spring-boot:2.6.5 (*)
-|    |    +--- org.springframework.boot:spring-boot:2.6.5 (*)
-|    |    \--- org.springframework.boot:spring-boot-autoconfigure:2.6.5 (*)
-|    \--- io.micrometer:micrometer-core:1.8.4
-|         +--- org.hdrhistogram:HdrHistogram:2.1.12
-|         \--- org.latencyutils:LatencyUtils:2.0.3
 +--- org.springframework.boot:spring-boot-starter-tomcat -> 2.6.5 (*)
 +--- org.grails:grails-web-boot -> 5.1.7
 |    +--- javax.servlet:javax.servlet-api:4.0.1

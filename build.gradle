@@ -158,7 +158,7 @@ bootRun { // default is Environment.DEVELOPMENT, to change use jvm-Option, e.g.:
 	
 	if ( grails.util.Environment.current == grails.util.Environment.DEVELOPMENT ) {
 		jvmArgs(
-			'-Dspring.output.ansi.enabled=always',			
+			'-Dspring.output.ansi.enabled=detect',			
 			'-XX:TieredStopAtLevel=1',
 			'-Xmx1024m',
 			'-Xdebug',
@@ -166,7 +166,7 @@ bootRun { // default is Environment.DEVELOPMENT, to change use jvm-Option, e.g.:
 			)
 	} else {
 		jvmArgs(
-			'-Dspring.output.ansi.enabled=always',
+			'-Dspring.output.ansi.enabled=detect',
 			'-XX:TieredStopAtLevel=1',
 			'-Xmx1024m'
 			)
@@ -244,11 +244,6 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
 	implementation "org.codehaus.groovy:groovy-all:${groovyVersion}" // it's crucial to take the right version here!
-	
-	// Jansi is a small java library that allows you to use ANSI escape codes to format your console output which works even on Windows.
-	// https://github.com/fusesource/jansi
-	// https://mvnrepository.com/artifact/org.fusesource.jansi/jansi
-	implementation group: 'org.fusesource.jansi', name: 'jansi', version: '2.4.0'
 				
 	implementation('org.springframework.boot:spring-boot-starter')
 	implementation('org.springframework.boot:spring-boot-starter-web')

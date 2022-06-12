@@ -134,10 +134,6 @@ For me this is good enough.
 
 ( Or maybe you are using thymeleaf anyway? ^^ )
 
-## Added Jansi Support
-Jansi is a small java library that allows you to use ANSI escape codes to format your console output which works even on Windows.
-See https://github.com/fusesource/jansi
-
 ## Recommended Software
 If you use the following software you should have no problems running this project:
 - Oracles Open JDK 15, download: https://jdk.java.net/archive/
