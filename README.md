@@ -58,31 +58,36 @@ https://examples.javacodegeeks.com/core-java/gradle/gradle-grails-example/
 	java -Dgrails.env=prod -jar eclipse-gradle-springboot-grails.war
 </pre>
 
-## Our Development-Cycle
+## Our intended Development-Cycle (Which FAILED dramatically!)
 - Run your application in Debug-Mode described as above
 - Change some Source-Code say you changed your HelloWorldController.groovy
 - The file will be compiled new
-    - Maybe you already see your change due to hot-code-replacement
-- If You don't see your changes do ```.\gradlew restart```
-- Because We added a Gradle-Restart-Task that will restart your server - now you should see your Code-Changes
+- Next we do ```.\gradlew restart```
+- Because We added a Gradle-Restart-Task that will restart your server-application
+- But You will NOT SEE ANY CHANGES you made - why?
+The crucical point here is, that hot-code-replacement will not work within eclipse! (together with JDK15)
+And even your webapplication has made a restart, it HAD NOT loaded the Classes aNew - although the classes are lying new compiled on the file-system
+( more precisely they were new compiled in the build-folder).
+<b>This is super-annoying</b>, but it's for real now.</br>
+</br>
+So you have to make hot-code-replacement work if you want a really smoot development cycle.
+Until this happens you have to do a cold-restart of your webapplication - what a mess.
 
-## How we added the Gradle-Restart-Task
+
+### How we added the Gradle-Restart-Task
 - in ``build.gradle`` add the following dependencies
 <pre>
     implementation 'org.springframework.boot:spring-boot-starter-actuator'	
     implementation 'org.springframework.cloud:spring-cloud-starter:3.1.3'
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 </pre>
-- The spring-boot-devtools didn't work out of the box - until now we don't know the exact reason
+- The spring-boot-devtools didn't work out of the box
 - but with the spring-boot-actuator and spring-cloud-starter dependencies we have a restart-endpoint
     - ``curl -X POST http://localhost:8080/actuator/restart`` will provoke a server-restart!
 - This is what your Restart-Task does, but because this Gradle-Task depends on compileGroovy and compileJava your project will be compiled too!
 - Howto implement the Gradle-Restart-Task see ``task restart`` in build.gradle
 - See also the Groovy-Implementation for the Http-Post on the Restart-Point: ``en.example.gradle.RestartTask.groovy``
 
-I think at this point we have <b>mission accomplished</b>!
-You have a Grails-Example Project and now you should know how your Development-Cycle (inclusive your Debug-Sessions) can work.  
-    
 
 ## Why not using a [Spring Tool Suite] Runconfiguration?
 Unfortunately using a Run-Configuration with the Spring Tool Suite will  _NOT_  work!
