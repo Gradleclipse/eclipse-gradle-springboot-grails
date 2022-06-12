@@ -70,7 +70,7 @@ And even your webapplication has made a restart, it HAD NOT loaded the Classes a
 ( more precisely they were new compiled in the build-folder).
 <b>This is super-annoying</b>, but it's for real now.</br>
 </br>
-So you have to make hot-code-replacement work if you want a really smoot development cycle.
+So you have to make hot-code-replacement work if you want a really smooth development cycle.
 Until this happens you have to do a cold-restart of your webapplication - what a mess.
 
 
@@ -81,7 +81,7 @@ Until this happens you have to do a cold-restart of your webapplication - what a
     implementation 'org.springframework.cloud:spring-cloud-starter:3.1.3'
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 </pre>
-- The spring-boot-devtools didn't work out of the box
+- Note: The spring-boot-devtools didn't work out of the box
 - but with the spring-boot-actuator and spring-cloud-starter dependencies we have a restart-endpoint
     - ``curl -X POST http://localhost:8080/actuator/restart`` will provoke a server-restart!
 - This is what your Restart-Task does, but because this Gradle-Task depends on compileGroovy and compileJava your project will be compiled too!
