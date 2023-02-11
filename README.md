@@ -1,18 +1,26 @@
 # eclipse-gradle-springboot-grails
 
-## Updated Dependencies for Grails 5.2.2
+<g-emoji class="g-emoji" alias="radioactive" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2622.png">☢️</g-emoji> 
+OUT-DATED 
+<g-emoji class="g-emoji" alias="radioactive" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2622.png">☢️</g-emoji>
 
-See http://docs.grails.org/5.2.2/guide/introduction.html#dependencyUpgrades
-### Grails 5.2.2 ships with the following dependency upgrades:
-- Groovy 3.0.7
+Because a Guide with versions will decay rapidly, this Guide is outdated!
+
+E.g.: Grails 5 supports now JDK 17, which was not the case, when this guide was created - well sometimes the world becomes better ;-)
+
+## Updated Dependencies for Grails 5.3.0
+
+See https://docs.grails.org/5.3.0/guide/single.html
+### Grails 5.3.0 ships with the following dependency upgrades:
+- Groovy 3.0.11
 - Micronaut 3
 - Micronaut for Spring 4
-- GORM 7.2.0
+- GORM 7.3.2
 - Spring Framework 5.3
-- Spring Boot 2.6
+- Spring Boot 2.7
 - Gradle 7.2
-- Spock 2.0-groovy-3.0
-- Grails Testing Support 2.3.0
+- Spock 2.1-groovy-3.0
+- Grails Testing Support 2.4.1
 
 
 ## Disclaimer
