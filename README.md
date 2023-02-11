@@ -1,5 +1,20 @@
 # eclipse-gradle-springboot-grails
 
+## Updated Dependencies for Grails 5.2.2
+
+See http://docs.grails.org/5.2.2/guide/introduction.html#dependencyUpgrades
+### Grails 5.2.2 ships with the following dependency upgrades:
+- Groovy 3.0.7
+- Micronaut 3
+- Micronaut for Spring 4
+- GORM 7.2.0
+- Spring Framework 5.3
+- Spring Boot 2.6
+- Gradle 7.2
+- Spock 2.0-groovy-3.0
+- Grails Testing Support 2.3.0
+
+
 ## Disclaimer
 The Author or this Project is not connected to the Eclipse-Foundation or the Gradle Project in any way.
 
