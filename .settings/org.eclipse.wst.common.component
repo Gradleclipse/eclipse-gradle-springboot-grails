@@ -2,6 +2,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="eclipse-gradle-springboot-grails">
 		<property name="context-root" value="eclipse-gradle-springboot-grails"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="grails-app/assets"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="grails-app/conf"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="grails-app/i18n"/>

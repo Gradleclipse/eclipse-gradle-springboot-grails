@@ -21,9 +21,10 @@ spring:
     groovy:
         template:
             check-template-location: false
-    devtools:
-        restart:
-            additional-exclude:
+    # moved to application.properties within src/main/resources folder
+    #devtools:
+    #    restart:
+    #        additional-exclude:
 environments:
     development:
         management:
